@@ -73,11 +73,11 @@ async function loadData(municipalityUrl, employmentUrl) {
 
     // Add class to employment percent conditionally
     if (employment_rate > 0.45) {
-      td4.className = "highly-employed";
+      tr.className = "highly-employed";
     } else if (employment_rate < 0.25) {
-      td4.className = "lowly-employed";
+      tr.className = "lowly-employed";
     } else {
-      td4.className = "normally-employed";
+      tr.className = "normally-employed";
     }
 
     td1.innerText = municipality;
@@ -90,5 +90,6 @@ async function loadData(municipalityUrl, employmentUrl) {
     tr.appendChild(td3);
     tr.appendChild(td4);
     tableBodyElem.appendChild(tr);
+    console.log(tr);
   }
 }
