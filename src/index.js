@@ -10,7 +10,7 @@ if (document.readyState !== "loading") {
 
 const inputUrl =
   "https://statfin.stat.fi/PxWeb/sq/4e244893-7761-4c4f-8e55-7a8d41d86eff";
-const tableBodyElem = document.getElementsByTagName("tbody");
+const tableBodyElem = document.getElementById("tbody");
 
 loadData(inputUrl);
 
@@ -31,7 +31,7 @@ async function loadData(inputUrl) {
     let idx = AlueIndexObject[key];
     let population;
     for (let i in PopulationObject) {
-      if (idx === i) {
+      if (idx == i) {
         population = PopulationObject[i];
       }
     }
