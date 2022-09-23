@@ -44,10 +44,10 @@ th {
   border-bottom: 2px solid gray;
 }
 
-.highly-employed {
+tr.highly-employed {
   background-color: #abffbd;
 }
 
-.lowly-employed {
+tr.lowly-employed {
   background-color: #ff9e9e;
 }
