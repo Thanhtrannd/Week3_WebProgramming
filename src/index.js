@@ -10,7 +10,8 @@ if (document.readyState !== "loading") {
 
 const municipalityUrl =
   "https://statfin.stat.fi/PxWeb/sq/4e244893-7761-4c4f-8e55-7a8d41d86eff";
-const employmentUrl = "https://statfin.stat.fi/PxWeb/sq/5e288b40-f8c8-4f1e-b3b0-61b86ce5c065";
+const employmentUrl =
+  "https://statfin.stat.fi/PxWeb/sq/5e288b40-f8c8-4f1e-b3b0-61b86ce5c065";
 
 const tableBodyElem = document.getElementById("tbody");
 
@@ -25,12 +26,14 @@ async function loadData(municipalityUrl, employmentUrl) {
   let employmenturl = employmentUrl;
   let loademployment = await fetch(employmenturl);
   let loadedemployment = await loademployment.json();
-  console.log(loadedemployment)
+  console.log(loadedemployment);
   // Populate data
   console.log(loadedmunicipality);
-  let AlueIndexObject = loadedmunicipality.dataset.dimension.Alue.category.index;
+  let AlueIndexObject =
+    loadedmunicipality.dataset.dimension.Alue.category.index;
   let PopulationObject = loadedmunicipality.dataset.value;
-  let MunicipalitiesObject = loadedmunicipality.dataset.dimension.Alue.category.label;
+  let MunicipalitiesObject =
+    loadedmunicipality.dataset.dimension.Alue.category.label;
   let EmploymentObject = loadedemployment.dataset.value;
   let allMunicipalityKeys = Object.keys(MunicipalitiesObject);
   console.log(allMunicipalityKeys);
@@ -41,7 +44,7 @@ async function loadData(municipalityUrl, employmentUrl) {
     let population;
     let employment;
     let employment_per;
-    
+
     // Get population for municipality
     for (let i in PopulationObject) {
       if (idx == i) {
@@ -55,14 +58,27 @@ async function loadData(municipalityUrl, employmentUrl) {
       }
     }
     // Compute employment-%
-    employment_per = Number(employment/population).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2});
-    
-    
+    let employment_rate = Number(employment / population);
+    employment_per = employment_rate.toLocaleString(undefined, {
+      style: "percent",
+      minimumFractionDigits: 2,
+    });
+
+    // Create element
     let tr = document.createElement("tr");
     let td1 = document.createElement("td");
     let td2 = document.createElement("td");
     let td3 = document.createElement("td");
     let td4 = document.createElement("td");
+
+    // Add class to employment percent conditionally
+    if (employment_rate > 0.45) {
+      td4.className = "highly-employed";
+    } else if (employment_rate < 0.25) {
+      td4.className = "lowly-employed";
+    } else {
+      td4.className = "normally-employed";
+    }
 
     td1.innerText = municipality;
     td2.innerText = population;
